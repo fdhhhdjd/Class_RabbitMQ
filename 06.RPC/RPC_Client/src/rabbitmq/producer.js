@@ -1,6 +1,6 @@
 //* LIB
 const { randomUUID } = require("crypto");
-const EventEmitter = require("events");
+const config = require("../config");
 
 class Producer {
   constructor(channel, replyQueueName, eventEmitter) {
