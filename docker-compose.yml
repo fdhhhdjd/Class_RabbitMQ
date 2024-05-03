@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE:-}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST:-}
+    env_file:
+      - .env
+    ports:
+      - ${RABBIT_MQ_PORT}:${RABBIT_MQ_PORT}
+      - ${RABBIT_MQ_SERVER}:${RABBIT_MQ_SERVER}
+    labels:
+      NAME: "rabbitmq"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq-data:
+    driver: local
