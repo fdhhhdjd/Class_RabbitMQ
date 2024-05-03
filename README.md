@@ -9,10 +9,7 @@
 
 # Class Online: Learn RabbitMQ With teacher Tai.
 
-## [Database](https://cockroachlabs.cloud/clusters)
-
 ## [RabbitMQ](https://www.rabbitmq.com/tutorials)
-
 
 ## Team Word: Liên hệ công việc ☎ https://profile-forme.com
 
