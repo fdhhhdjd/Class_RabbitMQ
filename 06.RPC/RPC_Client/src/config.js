@@ -5,7 +5,7 @@ dotenv.config();
 
 module.exports = {
   rabbitMQ: {
-    url:  `amqp://${process.env.RABBITMQ_DEFAULT_USER}:${process.env.RABBITMQ_DEFAULT_PASS}@localhost`,
+    url: `amqp://${process.env.RABBITMQ_DEFAULT_USER}:${process.env.RABBITMQ_DEFAULT_PASS}@localhost`,
     queues: {
       rpcQueue: "rpc_queue",
     },

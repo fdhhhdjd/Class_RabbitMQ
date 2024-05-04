@@ -38,7 +38,7 @@ class RabbitMQClient {
 
       this.isInitialized = true;
     } catch (error) {
-      console.log("rabbitmq error...", error);
+      console.log("rabbitMQ error...", error);
     }
   }
 

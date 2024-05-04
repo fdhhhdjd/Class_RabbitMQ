@@ -1,5 +1,11 @@
 //* REQUIRE
-const RabbitMQClient  = require ("./src/rabbitmq/client");
+const RabbitClient = require("./src/rabbitmq/client");
 
-
-RabbitMQClient.initialize()
+(async () => {
+  try {
+    await RabbitClient.initialize();
+    console.log("RabbitMQ setup completed.");
+  } catch (error) {
+    console.error("Error setting up RabbitMQ:", error);
+  }
+})();

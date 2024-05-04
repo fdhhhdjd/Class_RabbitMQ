@@ -10,7 +10,6 @@ dotenv.config();
 server.use(express.json()); // you need the body parser middleware
 
 server.post("/operate", async (req, res, next) => {
-  console.log(req.body);
   const response = await RabbitMQClient.produce(req.body);
   res.send({ response });
 });
