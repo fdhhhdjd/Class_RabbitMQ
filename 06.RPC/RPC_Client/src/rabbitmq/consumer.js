@@ -1,4 +1,3 @@
-
 class Consumer {
   constructor(channel, replyQueueName, eventEmitter) {
     this.channel = channel;
@@ -13,9 +12,10 @@ class Consumer {
       this.replyQueueName,
       (message) => {
         console.log("the reply is..", JSON.parse(message.content.toString()));
+
         this.eventEmitter.emit(
           message.properties.correlationId.toString(),
-          message
+          message.content.toString()
         );
       },
       {

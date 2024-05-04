@@ -23,7 +23,7 @@ class MessageHandler {
     }
 
     // Produce the response back to the client
-    await rabbitClient.produce(response, correlationId, replyTo);
+    return { response };
   }
 }
 

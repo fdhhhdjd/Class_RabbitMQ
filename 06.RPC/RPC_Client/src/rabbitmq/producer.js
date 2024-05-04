@@ -26,14 +26,11 @@ class Producer {
     );
 
     return new Promise((resolve, reject) => {
-      this.eventEmitter.once(uuid, async (errs, data) => {
-        if (errs) {
-          reject(errs);
-        }
-        
-        const reply = JSON.parse(data.content.toString());
-        resolve(reply);
+      this.eventEmitter.once(uuid, async (data) => {
+        resolve(data);
       });
+    }).catch((error) => {
+      reject(error);
     });
   }
 }

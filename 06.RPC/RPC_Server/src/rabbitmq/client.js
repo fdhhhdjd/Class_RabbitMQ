@@ -32,25 +32,19 @@ class RabbitMQClient {
       );
 
       this.producer = new Producer(this.producerChannel);
-      this.consumer = new Consumer(this.consumerChannel, rpcQueue);
-
-      this.consumer.consumeMessages();
+      if (this.producer) {
+        this.consumer = new Consumer(
+          this.consumerChannel,
+          rpcQueue,
+          this.producer
+        );
+        this.consumer.consumeMessages();
+      }
 
       this.isInitialized = true;
     } catch (error) {
       console.log("rabbitMQ error...", error);
     }
-  }
-
-  async produce(data, correlationId, replyToQueue) {
-    if (!this.isInitialized) {
-      await this.initialize();
-    }
-    return await this.producer.produceMessages(
-      data,
-      correlationId,
-      replyToQueue
-    );
   }
 }
 

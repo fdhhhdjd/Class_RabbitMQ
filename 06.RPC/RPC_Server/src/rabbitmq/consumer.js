@@ -1,9 +1,10 @@
 const MessageHandler = require("../messageHandler");
 
 class Consumer {
-  constructor(channel, rpcQueue) {
+  constructor(channel, rpcQueue, produce) {
     this.channel = channel;
     this.rpcQueue = rpcQueue;
+    this.producer = produce;
   }
 
   async consumeMessages() {
@@ -18,12 +19,14 @@ class Consumer {
           console.log("Missing some properties...");
         }
         console.log("Consumed", JSON.parse(message.content.toString()));
-        await MessageHandler.handle(
+        const { response } = await MessageHandler.handle(
           operation,
           JSON.parse(message.content.toString()),
           correlationId,
           replyTo
         );
+
+        this.producer.produceMessages(response, correlationId, replyTo);
       },
       {
         noAck: true,
