@@ -9,7 +9,7 @@ const server = express();
 dotenv.config();
 server.use(express.json()); // you need the body parser middleware
 
-server.post("/operate", async (req, res, next) => {
+server.get("/hello-class", async (req, res, next) => {
   const response = await RabbitMQClient.produce(req.body);
   res.send({ response });
 });
