@@ -19,7 +19,6 @@ class Consumer {
         );
       },
       {
-        // Consumer not need send again a confirm acknowledgment
         noAck: true,
       }
     );

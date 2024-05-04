@@ -31,7 +31,6 @@ class RabbitMQClient {
 
       const { queue: replyQueueName } = await this.consumerChannel.assertQueue(
         "",
-        // Only connect a times, if connection this close it will delete  queues
         { exclusive: true }
       );
 
