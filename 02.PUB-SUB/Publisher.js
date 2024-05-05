@@ -10,10 +10,10 @@ const publishLog = async (logType, message) => {
     const channel = await connection.createChannel();
     const exchange = config.rabbitMQ.exchange;
 
-    // Variable exchange kind fanout
+    //* Variable exchange kind fanout
     await channel.assertExchange(exchange, "fanout", { durable: false });
 
-    // Publish message với loại log cụ thể
+    //* Publish message with kind log specifically
     await channel.publish(exchange, "", Buffer.from(`${logType}: ${message}`));
     console.log(`[x] Sent ${logType} log: ${message}`);
 
