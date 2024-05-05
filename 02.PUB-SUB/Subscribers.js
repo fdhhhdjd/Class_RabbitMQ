@@ -1,7 +1,10 @@
+//* LIB
 const amqp = require("amqplib");
+
+//* REQUIRED
 const config = require("./src/config");
 
-async function createSubscriber(queueName, logType) {
+const createSubscriber = async (queueName, logType) => {
   try {
     const connection = await amqp.connect(config.rabbitMQ.url);
     const channel = await connection.createChannel();
@@ -35,7 +38,7 @@ async function createSubscriber(queueName, logType) {
   } catch (error) {
     console.error("Error:", error);
   }
-}
+};
 
 createSubscriber("infoLogs", "info");
 // createSubscriber("warningLogs", "warning");

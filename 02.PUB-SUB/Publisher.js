@@ -1,8 +1,10 @@
+//* LIB
 const amqp = require("amqplib");
+
+//* REQUIRED
 const config = require("./src/config");
 
-async function publishLog(logType, message) {
-  console.log(logType, message);
+const publishLog = async (logType, message) => {
   try {
     const connection = await amqp.connect(config.rabbitMQ.url);
     const channel = await connection.createChannel();
@@ -20,7 +22,7 @@ async function publishLog(logType, message) {
   } catch (error) {
     console.error("Error:", error);
   }
-}
+};
 
 // publishLog("info", "This is an information message");
 // publishLog("warning", "This is a warning message");
