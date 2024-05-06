@@ -1,16 +1,16 @@
-# 00. HELLO CLASS
+# 01. HELLO CLASS
 
 ![alt text](./assets/00.HELLO.png)
 
-# 01. WORK QUEUES
+# 02. WORK QUEUES
 
 ![alt text](./assets/01.WORK-QUEUES.png)
 
-# 02. PUB/SUB
+# 03. PUB/SUB
 
 ![alt text](./assets/02.PUB-SUB.png)
 
-# 03. ROUTING
+# 04. ROUTING
 
 ![alt text](./assets/03.ROUTING.png)
 
