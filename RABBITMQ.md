@@ -26,3 +26,7 @@
 # 07. DLX ( Dead Letter Exchange )
 
 ![alt text](./assets/07.DLX.png)
+
+# 08. EVENLY-DIST ( Evenly Distributing )
+
+![alt text](./assets/08.EVENLY-DIST.png)
