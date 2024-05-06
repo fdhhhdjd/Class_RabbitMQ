@@ -25,11 +25,8 @@ const publishMessage = async (topicKey, message) => {
   }
 };
 
-// Send message with topic key "logs.NodeJs.info"
 publishMessage("topic.NodeJs.info", "This is NodeJs");
 
-// Send message with topic key "logs.Go.error"
 publishMessage("*.*.Go", "This is GO");
 
-//Send message with topic key "Python.anything.you.want"
 publishMessage("Python.anything.you.want", "This is PYTHON");
