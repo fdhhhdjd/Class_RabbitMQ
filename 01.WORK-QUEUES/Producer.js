@@ -4,7 +4,7 @@ const amqp = require("amqplib");
 //* REQUIRED
 const config = require("./src/config");
 
-const publishMessage = async (message) => {
+const ProducerMessage = async (message) => {
   try {
     const connection = await amqp.connect(config.rabbitMQ.url);
     const channel = await connection.createChannel();
@@ -41,4 +41,4 @@ const publishMessage = async (message) => {
 };
 
 //* Send message
-publishMessage("I'm Nguyen Tien Tai");
+ProducerMessage("I'm Nguyen Tien Tai");
