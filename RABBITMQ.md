@@ -10,6 +10,10 @@
 
 ![alt text](./assets/02.PUB-SUB.png)
 
+# 03. ROUTING
+
+![alt text](./assets/03.ROUTING.png)
+
 
 # 06. RPC ( Remote Procedure Call )
 
