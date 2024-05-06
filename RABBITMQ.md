@@ -22,3 +22,7 @@
 # 06. RPC ( Remote Procedure Call )
 
 ![alt text](./assets/06.RPC-New.png)
+
+# 07. DLX ( Dead Letter Exchange )
+
+![alt text](./assets/07.DLX.png)
