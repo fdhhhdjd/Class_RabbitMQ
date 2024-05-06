@@ -30,3 +30,7 @@
 # 08. EVENLY-DIST ( Evenly Distributing )
 
 ![alt text](./assets/08.EVENLY-DIST.png)
+
+# 09. HEADERS
+
+![alt text](./assets/09.HEADER.png)

@@ -16,8 +16,6 @@ const createSubscriber = async (queueName, logType) => {
     //* Variable queue unique for subscriber
     const { queue } = await channel.assertQueue(queueName, { exclusive: true });
 
-    console.log(queue);
-
     //* Link queue with exchange
     await channel.bindQueue(queue, exchange, "");
 
