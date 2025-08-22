@@ -1,7 +1,7 @@
 const amqp = require("amqplib");
 
 const delayConsumers = async () => {
-  const connection = await amqp.connect("amqp://admin:admin123@localhost");
+  const connection = await amqp.connect("amqp://taiheo:taiheodev@localhost");
   const channel = await connection.createChannel();
 
   const queueDelay = "delayed_target_queue";
