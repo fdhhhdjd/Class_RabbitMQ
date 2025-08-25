@@ -34,3 +34,13 @@
 # 09. HEADERS
 
 ![alt text](./assets/09.HEADER.png)
+
+# 10. STREAM
+
+# 11. DELAYED 
+
+# 12. DLX
+
+# 13. WORK
+
+# 14. PRIORITY
