@@ -35,12 +35,12 @@
 
 ![alt text](./assets/09.HEADER.png)
 
-# 10. STREAM
+# 10. STREAM ( New )
 
-# 11. DELAYED 
+# 11. DELAYED ( New )
 
-# 12. DLX
+# 12. DLX ( New )
 
-# 13. WORK
+# 13. WORK ( New )
 
-# 14. PRIORITY
+# 14. PRIORITY ( New )
