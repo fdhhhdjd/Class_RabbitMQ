@@ -37,15 +37,176 @@
 
 # 10. STREAM ( New )
 
+```
+         ┌───────────────────┐
+         │     Producer      │
+         │  (produce.js)     │
+         └───────────────────┘
+                   |
+                   v
+        ┌──────────────────────────┐
+        │   Stream Queue (Rabbit)  │
+        │   type=stream            │
+        │   giữ tất cả message     │
+        └──────────────────────────┘
+                   |
+                   v
+        ┌──────────────────────────┐
+        │       Consumer           │
+        │    (consume.js)          │
+        └──────────────────────────┘
+                   |
+        ┌──────────────────────────┐
+        │ Data Warehouse (file)    │
+        │ dataWarehouse.txt        │
+        └──────────────────────────┘
+                   |
+        ┌──────────────────────────┐
+        │ Offset Checkpoint         │
+        │ offset.txt                │
+        └──────────────────────────┘
+
+
+```
+
 # 11. DELAYED ( New )
+
+```
+          ┌────────────────┐
+          │   Producer     │
+          └────────────────┘
+                   |
+                   v
+          ┌─────────────────────────────┐
+          │   delay_queue_10s           │
+          │  (TTL = 10s, DLX → main_ex) │
+          └─────────────────────────────┘
+                   |
+   (Message giữ trong queue 10s)
+                   |
+      TTL hết hạn (10s trôi qua)
+                   |
+                   v
+          ┌─────────────────────────────┐
+          │        main_exchange        │
+          │   (direct, routing key=go)  │
+          └─────────────────────────────┘
+                   |
+                   v
+          ┌─────────────────────────────┐
+          │   delayed_target_queue      │
+          │   (nơi Consumer lắng nghe)  │
+          └─────────────────────────────┘
+                   |
+                   v
+          ┌────────────────┐
+          │   Consumer     │
+          │ [✓] nhận msg   │
+          └────────────────┘
+
+```
 
 # 12. DLX ( New )
 
+```
+            +------------------+
+            |   Producer       |
+            | (DXL function)   |
+            +--------+---------+
+                     |
+                     v
+            +------------------+
+            |  main_queue      |<-------------------+
+            | (TTL = 5s)       |                    |
+            | DLX = dlx_exchange                    |
+            +--------+---------+                    |
+                     |                              |
+         (msg expired or rejected)                  |
+                     |                              |
+                     v                              |
+            +------------------+                    |
+            |  dlx_exchange    | (fanout exchange)  |
+            +--------+---------+                    |
+                     |                              |
+                     v                              |
+            +------------------+                    |
+            | dead_letter_queue|--------------------+
+            +------------------+
+
+
+```
+
 # 13. WORK ( New )
+
+```
+   +-------------+          +----------------+        +----------------+
+   |             |   task   |                |        |                |
+   |  Producer   +--------->+   Queue (tasks)+------->+  Worker 1      |
+   |             |          |                |        | (Consumer)     |
+   +-------------+          +----------------+        +----------------+
+                                                      ^
+                                                      |
+                                                      |
+                                                      v
+                                               +----------------+
+                                               |  Worker 2      |
+                                               | (Consumer)     |
+                                               +----------------+
+
+```
 
 # 14. TTL ( New )
 
+```
+   [Producer]
+       |
+       v
+ ┌───────────────┐
+ │  Queue (msg_ttl_queue) │
+ └───────────────┘
+       |
+       | Message có TTL=5s
+       |--------------------------> Nếu Consumer đọc trong 5s → xử lý OK
+       |
+       └──> Sau 5s -> Message tự động expire -> bị xóa khỏi queue
+
+
+```
+
 # 15. PRIORITY ( New )
+
+```
+                +-------------------+
+                |   Producer App    |
+                +-------------------+
+                         |
+     -------------------------------------------------
+     |                       |                       |
+     v                       v                       v
+[Normal ticket]         [VIP ticket]         [Medium ticket]
+ priority = 1           priority = 10         priority = 5
+     |                       |                       |
+     -------------------------+-----------------------+
+                               v
+                     ┌──────────────────┐
+                     │ Priority Queue   │
+                     │ (x-max-priority=10)
+                     └──────────────────┘
+                               |
+                               v
+                     +--------------------+
+                     |   Consumer App     |
+                     | (reads by priority)|
+                     +--------------------+
+                               |
+           --------------------------------------------
+           |                  |                       |
+           v                  v                       v
+   Process VIP          Process Medium           Process Normal
+      (10)                   (5)                      (1)
+
+
+```
 
 # 16. EMAIL-RETRY-DLX
 ```
