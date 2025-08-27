@@ -210,54 +210,56 @@
 
 # 16. EMAIL-RETRY-DLX
 ```
-          ┌─────────────────────┐
-          │   Producer Service  │
-          │  (Gửi request email)│
-          └─────────┬───────────┘
-                    │
-                    ▼
-        ┌──────────────────────────┐
-        │   Exchange chính (direct)│
-        │   email_exchange         │
-        └──────────┬──────────────┘
-                   │
-                   ▼
-         ┌──────────────────────┐
-         │ Queue chính          │
-         │ email_queue          │
-         │ (x-dead-letter-ex=dlx│
-         │  , x-message-ttl=5s) │
-         └─────────┬────────────┘
-                   │
-             Consumer Service
-                   │
-         ┌─────────▼───────────┐
-         │  Gửi email thực tế  │
-         └─────────┬───────────┘
-                   │
-          ┌────────▼─────────┐
-          │ Thành công        │
-          │ (ACK, xóa khỏi Q) │
-          └───────────────────┘
+                 ┌───────────────────┐
+                 │   EmailProducer   │
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                 ┌───────────────────┐
+                 │ ExchangeMain (direct)  
+                 │   "email.main.ex" │
+                 └─────────┬─────────┘
+                           │ routingKey=email
+                           ▼
+                 ┌───────────────────┐
+                 │   QueueMain       │
+                 │   "email.main"    │
+                 │  DLX → ExchangeRetry
+                 └─────────┬─────────┘
+                           │
+             ┌─────────────┴────────────────┐
+             │                              │
+     [✓ Success]                      [✗ Fail → reject]
+ channel.ack(msg)                 DLX → "email.retry.ex"
+                                        │
+                                        ▼
+                         ┌────────────────────────┐
+                         │    QueueRetry          │
+                         │    "email.retry"       │
+                         │ TTL=10s → DLX → Main   │
+                         └─────────┬─────────────┘
+                                   │ (sau 10s)
+                                   ▼
+                         ┌────────────────────────┐
+                         │ ExchangeMain           │
+                         └─────────┬─────────────┘
+                                   │
+                                   ▼
+                         ┌────────────────────────┐
+                         │ QueueMain (retry lần 2)│
+                         └────────────────────────┘
 
-          ┌─────────────────────┐
-          │ Thất bại (NACK/TTL) │
-          └─────────┬───────────┘
-                    ▼
-        ┌──────────────────────────┐
-        │ Dead Letter Exchange (DLX)│
-        └──────────┬───────────────┘
-                   │
-                   ▼
-        ┌──────────────────────────┐
-        │ Retry Queue (retry_queue)│
-        │ TTL=10s, DLX=email_ex    │
-        └──────────┬───────────────┘
-                   │
-                   ▼
-        (sau TTL → chuyển về email_exchange → email_queue thử lại)
+        ┌─────────────────────────────────────────────┐
+        │ Nếu retryCount >= 3                         │
+        │ Worker publish → ExchangeDead (fanout)      │
+        │   → QueueDead ("email.dead")                │
+        └─────────────────────────────────────────────┘
 
-
+                           ▼
+                ┌──────────────────────┐
+                │   EmailDeadConsumer   │
+                │   Log/Debug Failures  │
+                └──────────────────────┘
 ```
 
 ```
