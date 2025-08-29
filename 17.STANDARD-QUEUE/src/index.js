@@ -1,7 +1,5 @@
-const RabbitMQ = require("./core/RabbitMQ")
+const RabbitMQ = require("./core/RabbitMQ");
 
-const handleMessageQueue = async () => {
-    
-}
+const handleMessageQueue = async () => {};
 
-handleMessageQueue()
+handleMessageQueue();
