@@ -35,7 +35,7 @@
 
 ![alt text](./assets/09.HEADER.png)
 
-# 10. STREAM ( New )
+# 10. STREAM
 
 ```
          ┌───────────────────┐
