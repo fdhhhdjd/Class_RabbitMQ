@@ -2,7 +2,7 @@
 include .env
 export $(shell sed 's/=.*//' .env)
 
-# Folder constants
+# Constants
 DOCKER_COMPOSE := docker-compose.yml
 
 # Run auto
