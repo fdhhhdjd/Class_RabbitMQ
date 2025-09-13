@@ -18,7 +18,6 @@
 
 ![alt text](./assets/05.TOPIC.png)
 
-
 # 06. RPC ( Remote Procedure Call )
 
 ![alt text](./assets/06.RPC-New.png)
@@ -69,7 +68,7 @@
 
 ```
 
-# 11. DELAYED ( New )
+# 11. DELAYED
 
 ```
           ┌────────────────┐
@@ -106,7 +105,7 @@
 
 ```
 
-# 12. DLX ( New )
+# 12. DLX ( Dead Letter Exchange )
 
 ```
             +------------------+
@@ -155,7 +154,7 @@
 
 ```
 
-# 14. TTL ( New )
+# 14. TTL ( Time To Live )
 
 ```
    [Producer]
@@ -173,7 +172,7 @@
 
 ```
 
-# 15. PRIORITY ( New )
+# 15. PRIORITY
 
 ```
                 +-------------------+
