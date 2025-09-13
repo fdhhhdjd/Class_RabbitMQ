@@ -1,8 +1,8 @@
-# 01. Producer & Consumer 
+# 01. Producer/Consumer 
 
 ![alt text](./assets/01.HELLO.png)
 
-# 02. WORK QUEUES
+# 02. QUEUES
 
 ![alt text](./assets/02.WORK-QUEUES.png)
 
